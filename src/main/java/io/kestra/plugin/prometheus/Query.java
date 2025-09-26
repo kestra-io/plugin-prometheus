@@ -311,7 +311,7 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
         private String resultType;
     }
 
-    @Data
+    @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor

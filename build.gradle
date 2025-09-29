@@ -29,7 +29,7 @@ java {
 }
 
 group = "io.kestra.plugin"
-description = 'Plugin template for Kestra'
+description = 'Plugin Prometheus for Kestra'
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = "UTF-8"
@@ -91,6 +91,8 @@ dependencies {
     testImplementation group: "io.kestra", name: "repository-memory", version: kestraVersion
     testImplementation group: "io.kestra", name: "runner-memory", version: kestraVersion
     testImplementation group: "io.kestra", name: "storage-local", version: kestraVersion
+    testImplementation group: "io.kestra", name: "scheduler"
+    testImplementation group: "io.kestra", name: "worker"
 
     // test
     testImplementation "org.junit.jupiter:junit-jupiter-engine"
@@ -172,8 +174,8 @@ jar {
     manifest {
         attributes(
                 "X-Kestra-Name": project.name,
-                "X-Kestra-Title": "Template",
-                "X-Kestra-Group": project.group + ".templates",
+                "X-Kestra-Title": "Prometheus",
+                "X-Kestra-Group": project.group + ".prometheus",
                 "X-Kestra-Description": project.description,
                 "X-Kestra-Version": project.version
         )

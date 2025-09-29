@@ -1,0 +1,15 @@
+id: prometheus-listen
+namespace: company.team
+
+tasks:
+  - id: echo
+    type: io.kestra.plugin.core.debug.Return
+    format: "{{ trigger.metrics }}"
+
+triggers:
+  - id: watch
+    type: io.kestra.plugin.prometheus.Trigger
+    interval: "PT5S"
+    url: "http://localhost:9090"
+    fetchType: FETCH
+    query: "kestra_trigger_test_metric > 100"

@@ -23,13 +23,13 @@ import java.util.Map;
 public abstract class AbstractPrometheusTask<T extends io.kestra.core.models.tasks.Output> extends Task implements RunnableTask<T> {
     @Schema(
         title = "Username",
-        description = "Optional basic auth username."
+        description = "Optional basic auth username"
     )
     protected Property<String> username;
 
     @Schema(
         title = "Password",
-        description = "Optional basic auth password."
+        description = "Optional basic auth password"
     )
     protected Property<String> password;
 
@@ -41,7 +41,7 @@ public abstract class AbstractPrometheusTask<T extends io.kestra.core.models.tas
 
     @Schema(
         title = "HTTP options",
-        description = "HTTP client configuration."
+        description = "HTTP client configuration"
     )
     protected HttpConfiguration options;
 

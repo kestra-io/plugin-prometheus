@@ -32,8 +32,8 @@ import java.util.*;
 @Getter
 @NoArgsConstructor
 @Schema(
-    title = "Query Prometheus metrics using PromQL",
-    description = "Execute PromQL queries against Prometheus and return structured metric data"
+    title = "Query Prometheus metrics using PromQL.",
+    description = "Execute PromQL queries against Prometheus and return structured metric data."
 )
 @Plugin(
     examples = {
@@ -73,7 +73,7 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
     @NotNull
     @Schema(
         title = "Base URL",
-        description = "Prometheus server URL."
+        description = "Prometheus server URL"
     )
     @Builder.Default
     protected Property<String> url = Property.ofValue("http://localhost:9090");
@@ -87,16 +87,16 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
 
     @Schema(
         title = "Query time",
-        description = "Time for the query (RFC3339 or Unix timestamp). Defaults to current time"
+        description = "Time for the query (RFC3339 or Unix timestamp). Defaults to current time."
     )
     private Property<String> time;
 
     @Schema(
         title = "The way you want to store the data.",
-        description = "FETCH_ONE output the first row, "
-            + "FETCH output all the rows, "
-            + "STORE store all rows in a file, "
-            + "NONE do nothing."
+        description = "FETCH_ONE outputs the first row, "
+            + "FETCH outputs all the rows, "
+            + "STORE stores all rows in a file, "
+            + "NONE does nothing."
     )
     @Builder.Default
     private Property<FetchType> fetchType = Property.ofValue(FetchType.NONE);
@@ -276,7 +276,7 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
     @Getter
     public static class Output implements io.kestra.core.models.tasks.Output {
         @Schema(
-            title = "The number of rows fetched."
+            title = "The number of rows fetched"
         )
         private Integer size;
 
@@ -293,14 +293,14 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
         private List<PrometheusMetric> metrics;
 
         @Schema(
-            title = "first row of fetched data.",
-            description = "Only populated if using `fetchType=FETCH_ONE`."
+            title = "First row of fetched data",
+            description = "Only populated if using `fetchType=FETCH_ONE`"
         )
         private PrometheusMetric metric;
 
         @Schema(
-            title = "The URI of the stored data.",
-            description = "Only populated if using `fetchType=STORE`."
+            title = "The URI of the stored data",
+            description = "Only populated if using `fetchType=STORE`"
         )
         private URI uri;
 

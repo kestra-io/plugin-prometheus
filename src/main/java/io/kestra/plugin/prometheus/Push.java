@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 @Schema(
-    title = "Push metrics to Prometheus Pushgateway",
-    description = "Send custom metrics to Prometheus via the Pushgateway"
+    title = "Push metrics to Prometheus Pushgateway.",
+    description = "Send custom metrics to Prometheus via the Pushgateway."
 )
 @Plugin(
     examples = {
@@ -56,7 +56,7 @@ public class Push extends AbstractPrometheusTask<Push.Output> {
     @NotNull
     @Schema(
         title = "Base URL",
-        description = "Pushgateway URL."
+        description = "Pushgateway URL"
     )
     @Builder.Default
     protected Property<String> url = Property.ofValue("http://localhost:9091");
@@ -64,20 +64,20 @@ public class Push extends AbstractPrometheusTask<Push.Output> {
     @NotNull
     @Schema(
         title = "Job name",
-        description = "Prometheus job name."
+        description = "Prometheus job name"
     )
     private Property<String> job;
 
     @Schema(
         title = "Instance",
-        description = "Optional instance label."
+        description = "Optional instance label"
     )
     private Property<String> instance;
 
     @NotNull
     @Schema(
         title = "Metrics",
-        description = "List of metrics to push."
+        description = "List of metrics to push"
     )
     private Property<List<Metric>> metrics;
 

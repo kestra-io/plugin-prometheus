@@ -1,0 +1,8 @@
+group: io.kestra.plugin.prometheus
+name: "prometheus"
+title: "Prometheus"
+description: "Tasks to interact with Prometheus for monitoring, metrics, and observability."
+body: ""
+videos: []
+createdBy: "Kestra Core Team"
+managedBy: "Kestra Core Team"

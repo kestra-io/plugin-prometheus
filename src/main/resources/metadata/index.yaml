@@ -1,8 +1,8 @@
 group: io.kestra.plugin.prometheus
 name: "prometheus"
 title: "Prometheus"
-description: "Tasks to interact with Prometheus for monitoring, metrics, and observability."
-body: ""
+description: "Tasks that query Prometheus and push custom metrics."
+body: "Provide the Prometheus server URL and PromQL queries to fetch time-series data or use the pushgateway settings to publish metrics; triggers can poll PromQL results and start flows when conditions match."
 videos: []
 createdBy: "Kestra Core Team"
 managedBy: "Kestra Core Team"

@@ -32,8 +32,8 @@ import java.util.*;
 @Getter
 @NoArgsConstructor
 @Schema(
-    title = "Query Prometheus metrics using PromQL.",
-    description = "Execute PromQL queries against Prometheus and return structured metric data."
+    title = "Run PromQL query against Prometheus",
+    description = "Execute a PromQL query and return metrics as vector, matrix, scalar, or string. Defaults to http://localhost:9090 and uses `fetchType` (default NONE) to control outputs"
 )
 @Plugin(
     examples = {
@@ -73,7 +73,7 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
     @NotNull
     @Schema(
         title = "Base URL",
-        description = "Prometheus server URL"
+        description = "Prometheus server URL; defaults to http://localhost:9090"
     )
     @Builder.Default
     protected Property<String> url = Property.ofValue("http://localhost:9090");
@@ -87,16 +87,13 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
 
     @Schema(
         title = "Query time",
-        description = "Time for the query (RFC3339 or Unix timestamp). Defaults to current time."
+        description = "Query evaluation time (RFC3339 or Unix timestamp); defaults to current time"
     )
     private Property<String> time;
 
     @Schema(
-        title = "The way you want to store the data.",
-        description = "FETCH_ONE outputs the first row, "
-            + "FETCH outputs all the rows, "
-            + "STORE stores all rows in a file, "
-            + "NONE does nothing."
+        title = "Fetch behavior",
+        description = "Controls how results are returned: `FETCH_ONE` first row, `FETCH` all rows, `STORE` writes all rows to storage, `NONE` skips storage. Default NONE"
     )
     @Builder.Default
     private Property<FetchType> fetchType = Property.ofValue(FetchType.NONE);

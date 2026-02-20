@@ -24,7 +24,8 @@ import java.util.Optional;
 @Getter
 @NoArgsConstructor
 @Schema(
-    title = "Wait for a Prometheus PromQL query to return results."
+    title = "Poll Prometheus until query returns data",
+    description = "Runs a PromQL query on a fixed interval (default PT60S) and starts an Execution once results are non-empty. Reuses Query task options including auth, headers, fetchType, and time"
 )
 @Plugin(
     examples = {
@@ -44,10 +45,11 @@ import java.util.Optional;
                         format: "{{ json(taskrun.value) }}"
                 triggers:
                   - id: watch
-                    type: io.kestra.plugin.prometheus.QueryTrigger
+                    type: io.kestra.plugin.prometheus.Trigger
                     interval: "PT30S"
                     url: "http://localhost:9090"
                     query: "kestra_test_metric > 100"
+                    fetchType: FETCH
                 """
         )
     }

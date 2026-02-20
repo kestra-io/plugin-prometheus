@@ -22,26 +22,26 @@ import java.util.Map;
 @NoArgsConstructor
 public abstract class AbstractPrometheusTask<T extends io.kestra.core.models.tasks.Output> extends Task implements RunnableTask<T> {
     @Schema(
-        title = "Username",
-        description = "Optional basic auth username"
+        title = "Basic auth username",
+        description = "Optional username used for HTTP basic authentication"
     )
     protected Property<String> username;
 
     @Schema(
-        title = "Password",
-        description = "Optional basic auth password"
+        title = "Basic auth password",
+        description = "Optional password paired with `username` for HTTP basic authentication"
     )
     protected Property<String> password;
 
     @Schema(
-        title = "HTTP headers",
-        description = "HTTP headers to include in the request"
+        title = "Additional HTTP headers",
+        description = "Headers added to every Prometheus request; later values override duplicates"
     )
     public Property<Map<String,String>> headers;
 
     @Schema(
-        title = "HTTP options",
-        description = "HTTP client configuration"
+        title = "HTTP client options",
+        description = "Override client settings such as timeouts, TLS, or proxy. Defaults to standard Kestra HTTP configuration"
     )
     protected HttpConfiguration options;
 

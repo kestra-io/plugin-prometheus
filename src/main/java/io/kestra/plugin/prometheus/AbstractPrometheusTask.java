@@ -1,5 +1,7 @@
 package io.kestra.plugin.prometheus;
 
+import java.util.Map;
+
 import io.kestra.core.http.HttpRequest;
 import io.kestra.core.http.HttpResponse;
 import io.kestra.core.http.client.HttpClient;
@@ -9,11 +11,10 @@ import io.kestra.core.models.property.Property;
 import io.kestra.core.models.tasks.RunnableTask;
 import io.kestra.core.models.tasks.Task;
 import io.kestra.core.runners.RunContext;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-
-import java.util.Map;
 
 @SuperBuilder
 @ToString
@@ -37,7 +38,7 @@ public abstract class AbstractPrometheusTask<T extends io.kestra.core.models.tas
         title = "Additional HTTP headers",
         description = "Headers added to every Prometheus request; later values override duplicates"
     )
-    public Property<Map<String,String>> headers;
+    public Property<Map<String, String>> headers;
 
     @Schema(
         title = "HTTP client options",

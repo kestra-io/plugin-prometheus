@@ -1,14 +1,16 @@
 package io.kestra.plugin.prometheus;
 
+import java.util.List;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+
 import io.kestra.core.junit.annotations.KestraTest;
 import io.kestra.core.models.property.Property;
 import io.kestra.core.models.tasks.common.FetchType;
 import io.kestra.core.runners.RunContextFactory;
-import jakarta.inject.Inject;
-import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.Map;
+import jakarta.inject.Inject;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -24,13 +26,17 @@ public class PushTest {
             .url(Property.ofValue("http://localhost:9091"))
             .job(Property.ofValue("test_job"))
             .instance(Property.ofValue("test_instance"))
-            .metrics(Property.ofValue(List.of(
-                Push.Metric.builder()
-                    .name("kestra_test_metric")
-                    .value("123")
-                    .labels(Map.of("env", "test", "app", "kestra"))
-                    .build()
-            )))
+            .metrics(
+                Property.ofValue(
+                    List.of(
+                        Push.Metric.builder()
+                            .name("kestra_test_metric")
+                            .value("123")
+                            .labels(Map.of("env", "test", "app", "kestra"))
+                            .build()
+                    )
+                )
+            )
             .build();
 
         Push.Output pushOutput = pushTask.run(runContextFactory.of());

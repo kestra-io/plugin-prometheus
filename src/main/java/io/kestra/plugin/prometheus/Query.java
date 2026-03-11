@@ -1,8 +1,17 @@
 package io.kestra.plugin.prometheus;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.kestra.core.http.HttpRequest;
 import io.kestra.core.http.HttpResponse;
 import io.kestra.core.models.annotations.Example;
@@ -12,19 +21,12 @@ import io.kestra.core.models.tasks.common.FetchType;
 import io.kestra.core.runners.RunContext;
 import io.kestra.core.serializers.FileSerde;
 import io.kestra.core.serializers.JacksonMapper;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import reactor.core.publisher.Flux;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
 
 @SuperBuilder
 @EqualsAndHashCode
@@ -188,11 +190,13 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
             Map<String, String> labels = extractLabels(metricNode.get("metric"));
             JsonNode value = metricNode.get("value");
             if (value != null && value.isArray() && value.size() > 1) {
-                metrics.add(PrometheusMetric.builder()
-                    .labels(labels)
-                    .timestamp(value.get(0).asDouble())
-                    .value(value.get(1).asText())
-                    .build());
+                metrics.add(
+                    PrometheusMetric.builder()
+                        .labels(labels)
+                        .timestamp(value.get(0).asDouble())
+                        .value(value.get(1).asText())
+                        .build()
+                );
             }
         }
         return metrics;
@@ -206,11 +210,13 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
             if (values != null) {
                 for (JsonNode valueNode : values) {
                     if (valueNode.isArray() && valueNode.size() > 1) {
-                        metrics.add(PrometheusMetric.builder()
-                            .labels(labels)
-                            .timestamp(valueNode.get(0).asDouble())
-                            .value(valueNode.get(1).asText())
-                            .build());
+                        metrics.add(
+                            PrometheusMetric.builder()
+                                .labels(labels)
+                                .timestamp(valueNode.get(0).asDouble())
+                                .value(valueNode.get(1).asText())
+                                .build()
+                        );
                     }
                 }
             }
@@ -221,11 +227,13 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
     private List<PrometheusMetric> parseScalar(JsonNode result) {
         List<PrometheusMetric> metrics = new ArrayList<>();
         if (result != null && result.isArray() && result.size() > 1) {
-            metrics.add(PrometheusMetric.builder()
-                .labels(Map.of())
-                .timestamp(result.get(0).asDouble())
-                .value(result.get(1).asText())
-                .build());
+            metrics.add(
+                PrometheusMetric.builder()
+                    .labels(Map.of())
+                    .timestamp(result.get(0).asDouble())
+                    .value(result.get(1).asText())
+                    .build()
+            );
         }
         return metrics;
     }
@@ -233,11 +241,13 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
     private List<PrometheusMetric> parseString(JsonNode result) {
         List<PrometheusMetric> metrics = new ArrayList<>();
         if (result != null && result.isArray() && result.size() > 1) {
-            metrics.add(PrometheusMetric.builder()
-                .labels(Map.of())
-                .timestamp(result.get(0).asDouble())
-                .value(result.get(1).asText())
-                .build());
+            metrics.add(
+                PrometheusMetric.builder()
+                    .labels(Map.of())
+                    .timestamp(result.get(0).asDouble())
+                    .value(result.get(1).asText())
+                    .build()
+            );
         }
         return metrics;
     }
@@ -259,7 +269,9 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
 
         private final String value;
 
-        ResultType(String value) { this.value = value; }
+        ResultType(String value) {
+            this.value = value;
+        }
 
         public static ResultType fromString(String type) {
             return Arrays.stream(values())

@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import io.kestra.core.models.annotations.PluginProperty;
 
 @SuperBuilder
 @ToString
@@ -60,6 +61,7 @@ public class Push extends AbstractPrometheusTask<Push.Output> {
         description = "Pushgateway base URL; defaults to `http://localhost:9091`"
     )
     @Builder.Default
+    @PluginProperty(group = "connection")
     protected Property<String> url = Property.ofValue("http://localhost:9091");
 
     @NotNull
@@ -67,12 +69,14 @@ public class Push extends AbstractPrometheusTask<Push.Output> {
         title = "Job name",
         description = "Prometheus job label applied to all pushed metrics"
     )
+    @PluginProperty(group = "main")
     private Property<String> job;
 
     @Schema(
         title = "Instance",
         description = "Optional instance label added to each metric"
     )
+    @PluginProperty(group = "advanced")
     private Property<String> instance;
 
     @NotNull
@@ -80,6 +84,7 @@ public class Push extends AbstractPrometheusTask<Push.Output> {
         title = "Metrics",
         description = "List of metrics to push; each item supports labels and a value"
     )
+    @PluginProperty(group = "main")
     private Property<List<Metric>> metrics;
 
     @Override

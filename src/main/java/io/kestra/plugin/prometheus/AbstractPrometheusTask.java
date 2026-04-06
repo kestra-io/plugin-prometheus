@@ -15,6 +15,7 @@ import io.kestra.core.runners.RunContext;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import io.kestra.core.models.annotations.PluginProperty;
 
 @SuperBuilder
 @ToString
@@ -26,24 +27,28 @@ public abstract class AbstractPrometheusTask<T extends io.kestra.core.models.tas
         title = "Basic auth username",
         description = "Optional username used for HTTP basic authentication"
     )
+    @PluginProperty(group = "connection")
     protected Property<String> username;
 
     @Schema(
         title = "Basic auth password",
         description = "Optional password paired with `username` for HTTP basic authentication"
     )
+    @PluginProperty(group = "connection")
     protected Property<String> password;
 
     @Schema(
         title = "Additional HTTP headers",
         description = "Headers added to every Prometheus request; later values override duplicates"
     )
+    @PluginProperty(group = "advanced")
     public Property<Map<String, String>> headers;
 
     @Schema(
         title = "HTTP client options",
         description = "Override client settings such as timeouts, TLS, or proxy. Defaults to standard Kestra HTTP configuration"
     )
+    @PluginProperty(group = "advanced")
     protected HttpConfiguration options;
 
     protected abstract HttpRequest buildRequest(RunContext runContext) throws Exception;

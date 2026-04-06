@@ -27,6 +27,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import reactor.core.publisher.Flux;
+import io.kestra.core.models.annotations.PluginProperty;
 
 @SuperBuilder
 @EqualsAndHashCode
@@ -78,6 +79,7 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
         description = "Prometheus server URL; defaults to http://localhost:9090"
     )
     @Builder.Default
+    @PluginProperty(group = "connection")
     protected Property<String> url = Property.ofValue("http://localhost:9090");
 
     @NotNull
@@ -85,12 +87,14 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
         title = "PromQL query",
         description = "Prometheus query language expression"
     )
+    @PluginProperty(group = "main")
     private Property<String> query;
 
     @Schema(
         title = "Query time",
         description = "Query evaluation time (RFC3339 or Unix timestamp); defaults to current time"
     )
+    @PluginProperty(group = "advanced")
     private Property<String> time;
 
     @Schema(
@@ -98,6 +102,7 @@ public class Query extends AbstractPrometheusTask<Query.Output> {
         description = "Controls how results are returned: `FETCH_ONE` first row, `FETCH` all rows, `STORE` writes all rows to storage, `NONE` skips storage. Default NONE"
     )
     @Builder.Default
+    @PluginProperty(group = "processing")
     private Property<FetchType> fetchType = Property.ofValue(FetchType.NONE);
 
     @Override

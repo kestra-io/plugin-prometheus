@@ -1,5 +1,6 @@
 package io.kestra.plugin.prometheus;
 
+import io.kestra.core.models.annotations.PluginProperty;
 import java.time.Duration;
 import java.util.Map;
 import java.util.Optional;
@@ -60,8 +61,10 @@ public class Trigger extends AbstractTrigger implements PollingTriggerInterface,
     @Builder.Default
     private final Duration interval = Duration.ofSeconds(60);
 
+    @PluginProperty(secret = true)
     private Property<String> username;
 
+    @PluginProperty(secret = true)
     private Property<String> password;
 
     private Property<String> time;

@@ -27,14 +27,14 @@ public abstract class AbstractPrometheusTask<T extends io.kestra.core.models.tas
         title = "Basic auth username",
         description = "Optional username used for HTTP basic authentication"
     )
-    @PluginProperty(group = "connection")
+    @PluginProperty(secret = true, group = "connection")
     protected Property<String> username;
 
     @Schema(
         title = "Basic auth password",
         description = "Optional password paired with `username` for HTTP basic authentication"
     )
-    @PluginProperty(group = "connection")
+    @PluginProperty(group = "connection", secret = true)
     protected Property<String> password;
 
     @Schema(

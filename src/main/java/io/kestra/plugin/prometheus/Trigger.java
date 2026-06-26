@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 
 import io.kestra.core.models.annotations.Example;
 import io.kestra.core.models.annotations.Plugin;
+import io.kestra.core.models.annotations.PluginProperty;
 import io.kestra.core.models.conditions.ConditionContext;
 import io.kestra.core.models.executions.Execution;
 import io.kestra.core.models.property.Property;
@@ -60,21 +61,29 @@ public class Trigger extends AbstractTrigger implements PollingTriggerInterface,
     @Builder.Default
     private final Duration interval = Duration.ofSeconds(60);
 
+    @Schema(title = "Username for basic authentication")
     private Property<String> username;
 
+    @Schema(title = "Password for basic authentication")
+    @PluginProperty(secret = true, group = "connection")
     private Property<String> password;
 
+    @Schema(title = "Evaluation timestamp for the query")
     private Property<String> time;
 
+    @Schema(title = "Prometheus server URL")
     @NotNull
     private Property<String> url;
 
+    @Schema(title = "PromQL query to execute on each poll")
     @NotNull
     private Property<String> query;
 
+    @Schema(title = "How to fetch the query result")
     @Builder.Default
     private Property<FetchType> fetchType = Property.ofValue(FetchType.NONE);
 
+    @Schema(title = "Additional HTTP headers to send with the request")
     private Property<Map<String, String>> headers;
 
     @Override

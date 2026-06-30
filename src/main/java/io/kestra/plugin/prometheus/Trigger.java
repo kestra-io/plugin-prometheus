@@ -22,7 +22,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
-@ToString
+@ToString(exclude = {"username", "password"})
 @EqualsAndHashCode
 @Getter
 @NoArgsConstructor
@@ -62,6 +62,7 @@ public class Trigger extends AbstractTrigger implements PollingTriggerInterface,
     private final Duration interval = Duration.ofSeconds(60);
 
     @Schema(title = "Username for basic authentication")
+    @PluginProperty(secret = true, group = "connection")
     private Property<String> username;
 
     @Schema(title = "Password for basic authentication")

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 
 import io.kestra.core.models.annotations.Example;
 import io.kestra.core.models.annotations.Plugin;
+import io.kestra.core.models.annotations.PluginProperty;
 import io.kestra.core.models.conditions.ConditionContext;
 import io.kestra.core.models.executions.Execution;
 import io.kestra.core.models.property.Property;
@@ -21,7 +22,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
-@ToString
+@ToString(exclude = {"username", "password"})
 @EqualsAndHashCode
 @Getter
 @NoArgsConstructor
@@ -57,24 +58,43 @@ import lombok.experimental.SuperBuilder;
     }
 )
 public class Trigger extends AbstractTrigger implements PollingTriggerInterface, TriggerOutput<Query.Output> {
+    @Schema(
+        title = "Polling interval",
+        description = "Delay between two polls of the Prometheus query; defaults to `PT60S`"
+    )
+    @PluginProperty(group = "execution")
     @Builder.Default
     private final Duration interval = Duration.ofSeconds(60);
 
+    @Schema(title = "Username for basic authentication")
+    @PluginProperty(secret = true, group = "connection")
     private Property<String> username;
 
+    @Schema(title = "Password for basic authentication")
+    @PluginProperty(secret = true, group = "connection")
     private Property<String> password;
 
+    @Schema(title = "Evaluation timestamp for the query")
+    @PluginProperty(group = "advanced")
     private Property<String> time;
 
+    @Schema(title = "Prometheus server URL")
     @NotNull
+    @PluginProperty(group = "connection")
     private Property<String> url;
 
+    @Schema(title = "PromQL query to execute on each poll")
     @NotNull
+    @PluginProperty(group = "main")
     private Property<String> query;
 
+    @Schema(title = "How to fetch the query result")
+    @PluginProperty(group = "processing")
     @Builder.Default
     private Property<FetchType> fetchType = Property.ofValue(FetchType.NONE);
 
+    @Schema(title = "Additional HTTP headers to send with the request")
+    @PluginProperty(group = "advanced")
     private Property<Map<String, String>> headers;
 
     @Override

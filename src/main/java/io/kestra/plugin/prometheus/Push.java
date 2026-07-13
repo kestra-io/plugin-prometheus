@@ -151,7 +151,10 @@ public class Push extends AbstractPrometheusTask<Push.Output> {
     @Builder
     @Getter
     public static class Output implements io.kestra.core.models.tasks.Output {
+        @Schema(title = "Status of the push request")
         private String status;
+
+        @Schema(title = "HTTP status code returned by the pushgateway")
         private int code;
     }
 }

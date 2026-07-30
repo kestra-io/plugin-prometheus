@@ -40,12 +40,12 @@ import lombok.experimental.SuperBuilder;
                 namespace: company.team
                 tasks:
                   - id: each
-                    type: io.kestra.plugin.core.flow.ForEach
+                    type: io.kestra.plugin.core.flow.Loop
                     values: "{{ trigger.metrics }}"
                     tasks:
                       - id: return
                         type: io.kestra.plugin.core.debug.Return
-                        format: "{{ fromJson(taskrun.value) }}"
+                        format: "{{ fromJson(item.value) }}"
                 triggers:
                   - id: watch
                     type: io.kestra.plugin.prometheus.Trigger

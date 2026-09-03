@@ -4,7 +4,7 @@ Query metrics from Prometheus and push metrics to Pushgateway from Kestra flows.
 
 ## Authentication
 
-Set `url` on each task to your Prometheus or Pushgateway endpoint. For basic auth, set `username` and `password`. Pass additional HTTP headers via `headers`. Store secrets in [secrets](https://kestra.io/docs/concepts/secret) and apply connection properties globally with [plugin defaults](https://kestra.io/docs/workflow-components/plugin-defaults).
+Set `url` on each task to your Prometheus or Pushgateway endpoint. For basic auth, set `username` and `password`. Pass additional HTTP headers via `headers`. Store secrets in [secrets](https://kestra.io/docs/concepts/secret) and set connection properties on each task.
 
 ## Tasks
 

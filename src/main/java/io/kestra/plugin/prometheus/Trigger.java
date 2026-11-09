@@ -43,9 +43,9 @@ import lombok.experimental.SuperBuilder;
                     type: io.kestra.plugin.core.flow.ForEach
                     values: "{{ trigger.metrics }}"
                     tasks:
-                      - id: return
-                        type: io.kestra.plugin.core.debug.Return
-                        format: "{{ fromJson(taskrun.value) }}"
+                      - id: log_metric
+                        type: io.kestra.plugin.core.log.Log
+                        message: "{{ fromJson(taskrun.value) }}"
                 triggers:
                   - id: watch
                     type: io.kestra.plugin.prometheus.Trigger
